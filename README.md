@@ -51,7 +51,8 @@ Softmax
 ↓
 Output (10 classes)
 
-
+yaml
+Copy code
 
 A minimalist yet complete CNN design suitable for grayscale images such as MNIST.
 
@@ -64,82 +65,82 @@ Every component of this model was built from its mathematical definition.
 ### 4.1 Convolution
 The convolution operation computes a weighted sum of local regions in the input:
 
-\[
-S_{i,j}^{(k)} = (X * W^{(k)})_{i,j} + b^{(k)} = \sum_m \sum_n \sum_c X_{i+m, j+n, c} \cdot W^{(k)}_{m,n,c} + b^{(k)}
-\]
+$$
+S_{i,j}^{(k)} = (X * W^{(k)})_{i,j} + b^{(k)} = \sum_{m} \sum_{n} \sum_{c} X_{i+m, j+n, c} \cdot W^{(k)}_{m,n,c} + b^{(k)}
+$$
 
-- \(X\) = input tensor  
-- \(W^{(k)}\) = kernel weights for the \(k\)-th filter  
-- \(b^{(k)}\) = bias  
-- \(*\) denotes convolution  
+- $X$ = input tensor  
+- $W^{(k)}$ = kernel weights for the $k$-th filter  
+- $b^{(k)}$ = bias  
+- $*$ denotes convolution  
 
 Stride and zero padding are applied to control output size.
 
 ### 4.2 ReLU Activation
 The Rectified Linear Unit introduces non-linearity:
 
-\[
+$$
 f(x) = \max(0, x)
-\]
+$$
 
 Derivative for backpropagation:
 
-\[
+$$
 f'(x) = 
 \begin{cases} 
 1 & x > 0 \\
 0 & x \le 0 
 \end{cases}
-\]
+$$
 
 ### 4.3 Max Pooling
 Downsamples the feature map:
 
-\[
+$$
 Y_{i,j,c} = \max_{(m,n) \in R} X_{s \cdot i + m, s \cdot j + n, c}
-\]
+$$
 
-- \(R\) = pooling region  
-- \(s\) = stride  
+- $R$ = pooling region  
+- $s$ = stride  
 
 Gradients propagate only through the maximum value indices.
 
 ### 4.4 Flatten
 Reshapes the 3D feature maps into a vector:
 
-\[
+$$
 \text{flatten}(X) \in \mathbb{R}^{H \cdot W \cdot C}
-\]
+$$
 
 ### 4.5 Fully Connected Layer
 Performs affine transformation:
 
-\[
+$$
 Z = W \cdot X + b
-\]
+$$
 
-- \(X\) = input vector  
-- \(W\) = weight matrix  
-- \(b\) = bias vector  
+- $X$ = input vector  
+- $W$ = weight matrix  
+- $b$ = bias vector  
 
 ### 4.6 Softmax & Cross-Entropy Loss
 Softmax converts logits into probabilities:
 
-\[
+$$
 \hat{y}_i = \frac{e^{z_i}}{\sum_j e^{z_j}}
-\]
+$$
 
 Cross-entropy loss for multi-class classification:
 
-\[
+$$
 L = -\sum_i y_i \log(\hat{y}_i)
-\]
+$$
 
 Gradients propagate using the chain rule:
 
-\[
+$$
 \frac{\partial L}{\partial z_i} = \hat{y}_i - y_i
-\]
+$$
 
 ---
 
@@ -168,8 +169,8 @@ Dataset: **MNIST Handwritten Digits**
 
 Preparation steps:
 
-- Normalized pixel values to [0, 1].  
-- Expanded each image to include a channel dimension (28×28×1).  
+- Normalized pixel values to $[0, 1]$.  
+- Expanded each image to include a channel dimension $(28 \times 28 \times 1)$.  
 - One-hot encoded labels for classification.  
 - Optionally reduced dataset size during experimentation for computational efficiency.
 
@@ -187,8 +188,8 @@ Preparation steps:
 
 **Training phases:**
 
-1. **Forward Pass**: data flows through convolution → activation → pooling → flatten → dense → softmax.
-2. **Backward Pass**: gradients propagate from softmax to convolution; weights updated manually via SGD.
+1. **Forward Pass:** data flows through convolution → activation → pooling → flatten → dense → softmax.  
+2. **Backward Pass:** gradients propagate from softmax to convolution; weights updated manually via SGD.
 
 ---
 
@@ -224,6 +225,8 @@ CNN-from-scratch/
 ├── cnn_from_scratch.PNG # Output visualization
 └── README.md # Documentation
 
+yaml
+Copy code
 
 ---
 
