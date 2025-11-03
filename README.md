@@ -51,8 +51,6 @@ Softmax
 ↓
 Output (10 classes)
 
-yaml
-Copy code
 
 A minimalist yet complete CNN design suitable for grayscale images such as MNIST.
 
@@ -225,8 +223,6 @@ CNN-from-scratch/
 ├── cnn_from_scratch.PNG # Output visualization
 └── README.md # Documentation
 
-yaml
-Copy code
 
 ---
 
